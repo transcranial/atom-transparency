@@ -1,5 +1,7 @@
 # How To Achieve Atom Editor Transparency
 
+**Note: the following works for Atom versions up to 1.6. There are issues for 1.7+ which could be due to Electron. Currently investigating, any ideas welcome.**
+
 In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness. I'm running Mac OSX. 
 
 <p align="center">
@@ -66,5 +68,5 @@ atom-text-editor::shadow {
 }
 ```
 
-That's it, pretty simple!
+That's it--pretty simple!
 
