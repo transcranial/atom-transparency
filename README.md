@@ -2,7 +2,7 @@
 
 In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness.
 
-This has been tested on both macOS and Ubuntu 14.04 desktop.
+This has been tested on both macOS and Ubuntu 14.04 desktop, for Atom versions 1.0 up through 1.10.
 
 <p align="center">
   <img src="screenshot.png" />
