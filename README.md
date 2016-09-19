@@ -1,14 +1,21 @@
 # How To Achieve Atom Editor Transparency
 
-**Note: the following works for Atom versions up to 1.6. There are issues for 1.7+ which could be due to Electron. Currently investigating, any ideas welcome.**
+In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness.
 
-In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness. I'm running Mac OSX. 
+This has been tested on both macOS and Ubuntu 14.04 desktop.
 
 <p align="center">
   <img src="screenshot.png" />
 </p>
 
-Atom must be built from source with 2 additional lines of code. This makes Atom run as a frameless window which allows transparency to be enabled within Electron. After [cloning or forking Atom](https://github.com/atom/atom), insert [these two lines](https://github.com/transcranial/atom/blob/master/src/browser/atom-window.coffee#L27-L28) in `src/browser/atom-window.coffee`, 
+Atom must be built from source with 2 additional lines of code. This makes Atom run as a frameless window which allows transparency to be enabled within Electron. After [cloning or forking Atom](https://github.com/atom/atom), add the following to `options`:
+
+```coffeescript
+frame: false
+transparent: true
+```
+
+in `src/browser/atom-window.coffee` (pre-v1.9) or `src/main-process/atom-window.coffee` in versions 1.9+,
 
 changing this:
 
@@ -16,8 +23,8 @@ changing this:
 options =
   show: false
   title: 'Atom'
-  'web-preferences':
-    'direct-write': true
+  backgroundColor: "#fff"
+  ...
 ```
 
 to this:
@@ -28,22 +35,30 @@ options =
   transparent: true
   show: false
   title: 'Atom'
-  'web-preferences':
-    'direct-write': true
+  #backgroundColor: "#fff"
+  ...
 ```
+
+Note `backgroundColor` is commented out.
 
 Then run:
 
 ```sh
-./script/clean
-
-./script/build
+./script/clean && ./script/build
 ```
 
-This can take awhile, but once complete, fire up Atom, open up your editor LESS stylesheet (`⌘-shift-p`, then `Application: Open Your Stylesheet`), and add the following CSS. This is a basic guide - you can experiment with your own settings to get the effect you want. For example, to avoid text-on-text collisions in the autocomplete popups, I set `atom-overlay > *` to near-complete opacity.
+Refer to the official [build guides](https://github.com/atom/atom#building) for additional instructions if necessary. You may want to build a debian package, for example.
+
+This can take awhile, but once complete, fire up Atom.
+
+**In Atom v1.7+, atom must be started with an additional `--disable-gpu` flag.**
+
+Otherwise, there will be a lot of UI flickering. The reason for this may be due to various CSS transforms, but that's just speculation.
+
+Open up your editor LESS stylesheet (`⌘-shift-p` or `ctrl-shift-p`, then `Application: Open Your Stylesheet`), and add the following CSS. This is a basic guide - you can experiment with your own settings to get the effect you want. For example, to avoid text-on-text collisions in the autocomplete popups, I set `atom-overlay > *` to near-complete opacity.
 
 ```css
-html * {
+html, html * {
   background: rgba(0, 0, 0, 0) !important;
 }
 
@@ -68,5 +83,20 @@ atom-text-editor::shadow {
 }
 ```
 
-That's it--pretty simple!
+In the CSS above, this works pre-v1.9:
 
+```css
+html * {
+  background: rgba(0, 0, 0, 0) !important;
+}
+```
+
+but for v1.9+, this must be:
+
+```css
+html, html * {
+  background: rgba(0, 0, 0, 0) !important;
+}
+```
+
+That's it--pretty simple!
