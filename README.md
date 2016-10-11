@@ -2,7 +2,7 @@
 
 In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness.
 
-This has been tested on both macOS and Ubuntu 14.04 desktop, for Atom versions 1.0 up through 1.10.
+This has been tested on both macOS and Ubuntu 14.04 desktop, for Atom versions 1.0 up through 1.11.
 
 <p align="center">
   <img src="screenshot.png" />
@@ -51,9 +51,9 @@ Refer to the official [build guides](https://github.com/atom/atom#building) for 
 
 This can take awhile, but once complete, fire up Atom.
 
-**In Atom v1.7+, atom must be started with an additional `--disable-gpu` flag.**
+**On linux, add an additional `--enable-transparent-visuals` flag while starting atom.**
 
-Otherwise, there will be a lot of UI flickering. The reason for this may be due to various CSS transforms, but that's just speculation.
+**In Atom v1.7+, atom must be started with an additional `--disable-gpu` flag.** Otherwise, there will be a lot of UI flickering.
 
 Open up your editor LESS stylesheet (`⌘-shift-p` or `ctrl-shift-p`, then `Application: Open Your Stylesheet`), and add the following CSS. This is a basic guide - you can experiment with your own settings to get the effect you want. For example, to avoid text-on-text collisions in the autocomplete popups, I set `atom-overlay > *` to near-complete opacity.
 
