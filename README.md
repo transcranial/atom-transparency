@@ -99,4 +99,19 @@ html, html * {
 }
 ```
 
+For Macs experiencing issues with shadowed text described in issue #5 modify the shadow sections to look like the following:
+```css
+atom-text-editor::shadow {
+  .cursor-line {
+    background-color: rgba(0, 0, 0, 0.0) !important;
+  }
+  .selection .region {
+    background-color: rgba(0, 0, 0, 0.0) !important;
+  }
+  .gutter {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+```
+Then turn off background-tips addon.
+
 That's it--pretty simple!
