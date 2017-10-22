@@ -99,4 +99,14 @@ html, html * {
 }
 ```
 
+For Macs experiencing issues with shadow (burn in) text described in issue [#5](https://github.com/transcranial/atom-transparency/issues/5) add the following lines to `atom-pane`:
+```css
+atom-pane, atom-panel, atom-notification {
+  background: rgba(0, 0, 0, 0.5) !important;
+  -webkit-backface-visibility: hidden; /* Chrome, Safari, Opera */
+  backface-visibility: hidden;
+}
+```
+Then turn off background-tips addon.
+
 That's it--pretty simple!
