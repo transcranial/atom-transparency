@@ -120,7 +120,7 @@ html, html * {
 
 In Atom v1.25+, the `::shadow` parameter is deprecated. Please use `.editor` instead to avoid annoying warnings:
 
-```
+```css
 atom-text-editor.editor {
 ```
 
