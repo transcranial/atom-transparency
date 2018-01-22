@@ -44,20 +44,21 @@ Note `backgroundColor` is commented out.
 If you're running v1.25 or greater, `atom-window.coffee` may not exist. Instead, modify `src/main-process/atom-window.js`.
 Changing this:
 
-     ```javascript
-     const options = {
-       show: false,
-       title: 'Atom',
-     ```
+```javascript
+const options = {
+  show: false,
+  title: 'Atom',
+```
+
 to this:
 
-       ```javascript
-       const options = {
-         frame: false,
-         transparent: true,
-         show: false,
-         title: 'Atom',
-       ```
+```javascript
+const options = {
+  frame: false,
+  transparent: true,
+  show: false,
+  title: 'Atom',
+```
 
 Then run:
 
