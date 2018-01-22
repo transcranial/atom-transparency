@@ -41,6 +41,25 @@ options =
 
 Note `backgroundColor` is commented out.
 
+If you're running v1.25 or greater, `atom-window.coffee` may not exist. Instead, modify `src/main-process/atom-window.js`.
+Changing this:
+
+```javascript
+const options = {
+  show: false,
+  title: 'Atom',
+```
+
+to this:
+
+```javascript
+const options = {
+  frame: false,
+  transparent: true,
+  show: false,
+  title: 'Atom',
+```
+
 Then run:
 
 ```sh
@@ -97,6 +116,12 @@ but for v1.9+, this must be:
 html, html * {
   background: rgba(0, 0, 0, 0) !important;
 }
+```
+
+In Atom v1.25+, the `::shadow` parameter is deprecated. Please use `.editor` instead to avoid annoying warnings:
+
+```css
+atom-text-editor.editor {
 ```
 
 That's it--pretty simple!
