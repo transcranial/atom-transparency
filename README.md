@@ -51,6 +51,17 @@ Refer to the official [build guides](https://github.com/atom/atom#building) for 
 
 This can take awhile, but once complete, fire up Atom.
 
+**On some Linux distributions, you may not need to rebuild Atom at all.** Check if the file exists somewhere in your system.
+
+```sh
+# Find out if the package `atom` provides main-window.js
+dpkg -L atom | grep main-window    # ubuntu
+pacman -Qo atom | grep main-window   # archlinux
+
+# Edit it
+sudo gedit /usr/lib/atom/src/main-process/main-window.js
+```
+
 **On Linux, add an additional `--enable-transparent-visuals` flag while starting Atom.** You can easily do this via:
 
 ```sh
