@@ -2,44 +2,44 @@
 
 In atom, there is no easy config (yet) to set window or background transparency as you would in iTerm or TextMate. Here's a straightforward guide on how to achieve transparent window awesomeness.
 
-This has been tested on both macOS and Ubuntu 14.04 desktop, for Atom versions 1.0 up through 1.11.
+This has been tested on both macOS and Ubuntu 14.04 desktop, for Atom versions 1.0 up through 1.28.
 
 <p align="center">
   <img src="screenshot.png" />
 </p>
 
-Atom must be built from source with 2 additional lines of code. This makes Atom run as a frameless window which allows transparency to be enabled within Electron. After [cloning or forking Atom](https://github.com/atom/atom), add the following to `options`:
+Atom must be built from source with 2 additional lines of code. This makes Atom run as a frameless window which allows transparency to be enabled within Electron. After [cloning or forking Atom](https://github.com/atom/atom), and do one of the following, depending on which files you have.
 
-```coffeescript
-frame: false
-transparent: true
-```
+- (v1.28+) edit `src/main-process/atom-window.js`:
 
-in `src/browser/atom-window.coffee` (pre-v1.9) or `src/main-process/atom-window.coffee` in versions 1.9+,
+  ```diff
+   const options = {
+     show: false,
+     title: 'Atom',
+     tabbingIdentifier: 'Atom',
+  +  transparent: true,
+     webPreferences: {
+       ...
+  ```
+  
+- (v1.9+) edit `src/main-process/atom-window.coffee`:
 
-changing this:
+  ```diff
+   options =
+     show: false
+  +  frame: false
+  +  transparent: true
+     title: 'Atom'
+  -  backgroundColor: "#fff"
+  +  #backgroundColor: "#fff"
+  ```
+  
+- (pre-v1.9) add the following to `options` in `src/browser/atom-window.coffee`:
 
-```coffeescript
-options =
-  show: false
-  title: 'Atom'
-  backgroundColor: "#fff"
-  ...
-```
-
-to this:
-
-```coffeescript
-options =
+  ```coffeescript
   frame: false
   transparent: true
-  show: false
-  title: 'Atom'
-  #backgroundColor: "#fff"
-  ...
-```
-
-Note `backgroundColor` is commented out.
+`  ``
 
 Then run:
 
@@ -51,7 +51,22 @@ Refer to the official [build guides](https://github.com/atom/atom#building) for 
 
 This can take awhile, but once complete, fire up Atom.
 
-**On linux, add an additional `--enable-transparent-visuals` flag while starting atom.**
+**On some Linux distributions, you may not need to rebuild Atom at all.** Check if the file exists somewhere in your system.
+
+```sh
+# Find out if the package `atom` provides main-window.js
+dpkg -L atom | grep main-window    # ubuntu
+pacman -Qo atom | grep main-window   # archlinux
+
+# Edit it
+sudo gedit /usr/lib/atom/src/main-process/main-window.js
+```
+
+**On Linux, add an additional `--enable-transparent-visuals` flag while starting Atom.** You can easily do this via:
+
+```sh
+echo '--enable-transparent-visuals' > ~/.config/atom-editor-flags.conf
+```
 
 **In Atom v1.7+, atom must be started with an additional `--disable-gpu` flag.** Otherwise, there will be a lot of UI flickering.
 
